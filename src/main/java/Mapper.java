@@ -35,10 +35,10 @@ public class Mapper {
 		return proteinList;
 	}
 	
-	public OrderResponse postOrder() {
+	public OrderResponse postOrder(RedVenturesOrder order) {
 		var orderResponse = new OrderResponse();
 		
-		orderResponse.setId("1");
+		orderResponse.setId(order.getOrderId());
 		orderResponse.setDescription("Salt and Chasu Ramen");
 		orderResponse.setImage("https://tech.redventures.com.br/icons/ramen/ramenChasu.png");
 		
