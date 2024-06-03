@@ -45,10 +45,10 @@ public class Mapper {
 		return orderResponse;
 	}
 	
-	public ErrorLog missingApiKey() {
+	public ErrorLog mapErrorLog(String message) {
 		var error = new ErrorLog();
 		
-		error.setError("x-api-key header missing.");
+		error.setError(message);
 		
 		return error;
 	}

@@ -72,12 +72,25 @@ public class RamenGoResource {
 					.build();
 		}
 		
+		if(order.getBrothId() == null || order.getProteinId() == null) {
+			return Response.status(Status.BAD_REQUEST)
+					.entity(mapper.mapErrorLog("both brothId and proteinId are required"))
+					.build();
+		}
+		
 		var redVenturesOrder = redVenturesServiceProvider.redVenturesService().postOrder();
 		
-		var orderResponse = mapper.postOrder(redVenturesOrder);
+		try {
+			var orderResponse = mapper.postOrder(redVenturesOrder);
+			
+			return Response.ok(201)
+					.entity(orderResponse)
+					.build();
+		} catch (Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR)
+					.entity(mapper.mapErrorLog("could not place order"))
+					.build();
+		}
 
-		return Response.ok(201)
-				.entity(orderResponse)
-				.build();
 	}
 }
