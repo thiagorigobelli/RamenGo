@@ -1,6 +1,12 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import pojo.Broth;
+import pojo.ErrorLog;
+import pojo.OrderResponse;
+import pojo.Protein;
+import pojo.RedVenturesOrder;
+
 public class Mapper {
 	
 	public ArrayList<Broth> allBroths(){

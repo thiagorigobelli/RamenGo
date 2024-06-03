@@ -5,6 +5,8 @@ import javax.ws.rs.Produces;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
+import pojo.RedVenturesOrder;
+
 @Path("orders")
 @RegisterRestClient
 @Consumes("application/json")

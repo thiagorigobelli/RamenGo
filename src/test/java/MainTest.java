@@ -14,8 +14,8 @@ public class MainTest {
 		given()
           .when().get("/api/v1/broths")
           .then()
-             .statusCode(403)    
-             .body("error", is("x-api-key header missing."));
+          .statusCode(403)    
+          .body("error", is("x-api-key header missing."));
     }
 	
 	@Test    
@@ -23,13 +23,13 @@ public class MainTest {
 		given().header("x-api-key", "78987")
           .when().get("/api/v1/broths")
           .then()
-             .statusCode(403)    
-             .body("error", is("Unauthorized opperation."));
+          .statusCode(403)    
+          .body("error", is("Unauthorized opperation."));
     }
 	
 	@Test    
     public void testBrothEndpointCorrectApiKey() {
-		given().header("x-api-key", "12345")
+		given().header("x-api-key", "8xl7jqfafzgbevl")
           .when().get("/api/v1/broths")
           .then()
              .statusCode(200)    
@@ -46,22 +46,23 @@ public class MainTest {
 		given()
           .when().get("/api/v1/proteins")
           .then()
-             .statusCode(403)    
-             .body("error", is("x-api-key header missing."));
+          .statusCode(403)    
+          .body("error", is("x-api-key header missing."));
     }
 	
 	@Test    
     public void testProteinEndpointWrongApiKey() {
-		given().header("x-api-key", "78987")
+		given()
+		  .header("x-api-key", "78987")
           .when().get("/api/v1/proteins")
           .then()
-             .statusCode(403)    
-             .body("error", is("Unauthorized opperation."));
+          .statusCode(403)    
+          .body("error", is("Unauthorized opperation."));
     }
 	
 	@Test    
     public void testProteinEndpointCorrectApiKey() {
-		given().header("x-api-key", "12345")
+		given().header("x-api-key", "8xl7jqfafzgbevl")
           .when().get("/api/v1/proteins")
           .then()
              .statusCode(200)    
@@ -71,5 +72,30 @@ public class MainTest {
             		 "name", hasItem("Chasu"),
             		 "description", hasItem("A sliced flavourful pork meat with a selection of season vegetables."),
             		 "price", hasItem(10));
+    }
+	
+	@Test    
+    public void testOrderEndpointNoApiKey() {
+		given()
+		  .header("Content-type", "application/json")
+		  .and()
+		  .body("{\"brothId\": \"1\",\"proteinId\": \"1\"}")
+	      .when().post("/api/v1/orders")
+	      .then()
+	      .statusCode(403)    
+	      .body("error", is("x-api-key header missing."));
+    }
+	
+	@Test    
+    public void testOrderEndpointWrongApiKey() {
+		given()
+		  .header("Content-type", "application/json")
+		  .and()
+		  .header("x-api-key", "78987")
+		  .and()
+          .when().post("/api/v1/orders")
+          .then()
+          .statusCode(403)    
+          .body("error", is("Unauthorized opperation."));
     }
 }

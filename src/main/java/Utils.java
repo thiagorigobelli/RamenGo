@@ -1,3 +1,4 @@
+import pojo.ErrorLog;
 
 public class Utils {
 

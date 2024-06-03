@@ -10,6 +10,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import pojo.Order;
+
 @Path("api/v1")
 public class RamenGoResource {
 	

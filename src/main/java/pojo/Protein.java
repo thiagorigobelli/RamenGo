@@ -1,6 +1,7 @@
+package pojo;
 import java.math.BigDecimal;
 
-public class Broth {
+public class Protein {
 
 	String id;
 	String imageInactive;
