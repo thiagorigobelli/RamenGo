@@ -1,3 +1,4 @@
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -7,37 +8,21 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 @Path("api/v1")
 public class RamenGoResource {
 	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("orders")
-	public Response postOrder(@HeaderParam("x-api-key") String apiKey, Order order) {
-		var mapper = new Mapper();
-		
-		var error = authenticateKey(mapper, apiKey);
-		
-		if(error != null) {
-			return Response.status(Status.FORBIDDEN)
-					.entity(error)
-					.build();
-		}
-		
-		var orderResponse = mapper.postOrder();
-
-		return Response.ok(201)
-				.entity(orderResponse)
-				.build();
-	}
-
+	@Inject
+    RedVenturesServiceProvider redVenturesServiceProvider;
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("broths")
 	public Response fetchAllBroths(@HeaderParam("x-api-key") String apiKey) {
 		var mapper = new Mapper();
 		
-		var error = authenticateKey(mapper, apiKey);
+		var error = Utils.authenticateKey(mapper, apiKey);
 		
 		if(error != null) {
 			return Response.status(Status.FORBIDDEN)
@@ -58,7 +43,7 @@ public class RamenGoResource {
 	public Response fetchAllProteins(@HeaderParam("x-api-key") String apiKey) {
 		var mapper = new Mapper();
 		
-		var error = authenticateKey(mapper, apiKey);
+		var error = Utils.authenticateKey(mapper, apiKey);
 		
 		if(error != null) {
 			return Response.status(Status.FORBIDDEN)
@@ -72,16 +57,27 @@ public class RamenGoResource {
 				.entity(proteinList)
 				.build();
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("orders")
+	public Response postOrder(@HeaderParam("x-api-key") String apiKey, Order order) {
+		var mapper = new Mapper();
+		
+		var error = Utils.authenticateKey(mapper, apiKey);
+		
+		if(error != null) {
+			return Response.status(Status.FORBIDDEN)
+					.entity(error)
+					.build();
+		}
+		
+		var redVenturesOrder = redVenturesServiceProvider.redVenturesService().postOrder();
+		
+		var orderResponse = mapper.postOrder(redVenturesOrder);
 
-	private ErrorLog authenticateKey(Mapper foodMapper, String apiKey) {
-		if(apiKey == null) {
-			return foodMapper.missingApiKey();
-		}
-		
-		if(!apiKey.equals("12345")) {
-			return foodMapper.notAuthorized();
-		}
-		
-		return null;
+		return Response.ok(201)
+				.entity(orderResponse)
+				.build();
 	}
 }
