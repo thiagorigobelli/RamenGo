@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import pojo.Order;
+import pojo.OrderRequest;
 
 @Path("api/v1")
 public class RamenGoResource {
@@ -63,7 +63,7 @@ public class RamenGoResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("orders")
-	public Response postOrder(@HeaderParam("x-api-key") String apiKey, Order order) {
+	public Response postOrder(@HeaderParam("x-api-key") String apiKey, OrderRequest order) {
 		var mapper = new Mapper();
 		
 		var error = Utils.authenticateKey(mapper, apiKey);

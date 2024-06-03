@@ -2,7 +2,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import pojo.Broth;
-import pojo.ErrorLog;
+import pojo.ErrorResponse;
 import pojo.OrderResponse;
 import pojo.Protein;
 import pojo.RedVenturesOrder;
@@ -51,16 +51,16 @@ public class Mapper {
 		return orderResponse;
 	}
 	
-	public ErrorLog mapErrorLog(String message) {
-		var error = new ErrorLog();
+	public ErrorResponse mapErrorLog(String message) {
+		var error = new ErrorResponse();
 		
 		error.setError(message);
 		
 		return error;
 	}
 
-	public ErrorLog notAuthorized() {
-		var error = new ErrorLog();
+	public ErrorResponse notAuthorized() {
+		var error = new ErrorResponse();
 		
 		error.setError("Unauthorized opperation.");
 		

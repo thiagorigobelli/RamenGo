@@ -1,5 +1,5 @@
 package pojo;
-public class Order {
+public class OrderRequest {
 
 	String brothId;
 	String proteinId;

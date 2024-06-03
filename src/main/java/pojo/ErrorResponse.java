@@ -1,6 +1,6 @@
 package pojo;
 
-public class ErrorLog {
+public class ErrorResponse {
 	
 	private String error;
 

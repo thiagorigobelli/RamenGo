@@ -1,8 +1,8 @@
-import pojo.ErrorLog;
+import pojo.ErrorResponse;
 
 public class Utils {
 
-	public static ErrorLog authenticateKey(Mapper foodMapper, String apiKey) {
+	public static ErrorResponse authenticateKey(Mapper foodMapper, String apiKey) {
 		if(apiKey == null) {
 			return foodMapper.mapErrorLog("x-api-key header missing.");
 		}
