@@ -6,7 +6,7 @@ public class Utils {
 			return foodMapper.missingApiKey();
 		}
 		
-		if(!apiKey.equals("12345")) {
+		if(!apiKey.equals("8xl7jqfafzgbevl")) {
 			return foodMapper.notAuthorized();
 		}
 		
