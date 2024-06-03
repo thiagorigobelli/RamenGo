@@ -1,2 +1,5 @@
 # RamenGO
-- Quarkus maven project
+- Maven
+- Quarkus
+- Jax-RS
+- RESTeasy
